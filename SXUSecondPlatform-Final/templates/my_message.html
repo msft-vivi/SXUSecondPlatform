@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}我的消息{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/goods.css') }}">
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+    {% if messages %}
+           {% for message in messages%}
+            <tr>
+                        <div class="alert alert-danger" role="alert">{{ message.m_content }}</div>
+                            <p style="text-align: right">{{ message.m_time }}</p>
+            </tr>
+            {% endfor %}
+    {% else %}
+        <h2>暂时没有您的消息哦</h2>
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+
+{% extends 'base.html' %}
+
+{% block title %}订单页面{% endblock %}
+
+{% block head %}
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+    	<style type="text/css">
+            #context table{background: #adadad;border:1px solid #c9c9c9; border-collapse: collapse; margin: 45px auto; width:100% }
+            #context td{padding:5px 15px;}
+            #thead td{border-top:2px solid #FFC501; text-align: center; background-color:#cfcfcf; color:#000}
+            #totalPrice{color:#b20000; font-size: 14px;}
+            .f1{font-weight:bold;}
+            .f2{font-weight:bold; color:#b20000;}
+            .money{font-weight: bold;color: #973634;}
+	    </style>
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div id="context">
+            <h3 class="page-title">订单详情</h3>
+        <form action="{{ url_for('pay',goods_id=order.o_gid) }}" method="post">
+            <table>
+                <tr>
+                    <td class="f2">订单编号:</td>
+                    <td colspan="5"><i>{{ order.o_ordernumber }}</i></td>
+                    <input type="hidden" value="{{ order.o_ordernumber }}" name="ordernumber">
+                </tr>
+                <tr>
+                    <td class="f2">购买商品:</td>
+                    <td colspan="3">{{ order.o_desc }}</td>
+                    <td class="f2">数量:1</td>
+                </tr>
+                <tr>
+                    <td class="f1">应付金额:</td>
+                    <td class="money">{{ order.o_money }}￥</td>
+                    <td class="f1">支付方式:
+                    </td>
+                    <td>
+                        线上支付
+                    </td>
+                    <td class="f1">下单时间:</td>
+                    <td>{{ order.o_time }}</td>
+                    <input type="hidden" value="{{ order.o_time }}" name="time">
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td class="f2">收货人:</td>
+                    <td colspan="5"><input type="text" value = "{{ user.u_name }}" name="username" /> </td>
+                </tr>
+                <tr>
+                    <td class="f2">收货地址:</td>
+                    <td colspan="5"><input style="width:500px;" type="text" name="address"  value = "{{ user.u_addr }}" /> </td>
+                </tr>
+                <tr>
+                    <td class="f2">收货人联系方式:</td>
+                    <td colspan="2"><input type="text" name="telephone" value = "{{ user.u_tel }}"/> </td>
+{#                    <td class="f2">邮编:</td>#}
+{#                    <td colspan="2"><input type="text" name="orderpostcode" value = "{{ order.o_postcode }}" /> </td>#}
+                </tr>
+            </table>
+            <div style="text-align: right">
+                <button type="submit" class="btn btn-primary" >提交订单</button>
+            </div>
+            <br/>&nbsp;
+        </form>
+        </div>
+    </div>
+{% endblock %}

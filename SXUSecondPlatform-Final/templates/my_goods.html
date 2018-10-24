@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}我发布的商品{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/goods.css') }}">
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        {% if goods_list %}
+        <table class="table">
+        <thead class="table-head">
+          <tr>
+              <th style="width: 25%">商品名称</th>
+                <th style="width: 40%;">商品描述</th>
+                <th style="width: 20%">商品价格(￥)</th>
+              <th style="width: 15%">详细信息</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+        {% for goods in goods_list%}
+            <tr>
+                <td>{{ goods.g_name }}</td>
+                <td>{{ goods.g_desc }}</td>
+                <td>{{ goods.g_price }}</td>
+                <td><a href="{{ url_for('detail',goods_id = goods.g_id) }}">查看详情</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {% else %}
+            <h3>暂无商品发布信息</h3>
+    {% endif %}
+    </div>
+{% endblock %}

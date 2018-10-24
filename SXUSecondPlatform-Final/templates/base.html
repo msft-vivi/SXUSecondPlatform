@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>{% block title%}{% endblock %}-山西大学二手交易平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+    {% block head %} {% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+          <a class="navbar-brand" href="#">
+              <img src="/static/img/sxu.png" alt="" style="width: 40px;">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse navbar-right" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                          <button type="button" class="btn btn-primary btn-outline-primary my-2 my-sm-0 navbar-btn" title="需要先登陆哦">
+                              <a href="{{ url_for('post_goods') }}" style="text-decoration: none;">我要发布</a>
+                          </button>
+                    </li>
+                    <li class="nav-item">
+                    <li>
+                         <button class="btn btn-outline-primary navbar-btn">
+                                    <a  style="text-decoration: none" href="{{ url_for('index') }}">首页</a>
+                         </button>
+                    </li>
+                        {% if user %}
+                            <li>
+                             <a  style="text-decoration: none" href="{{ url_for('self_center') }}">{{ user.u_name }}</a>
+{#                                <button class="btn btn-outline-primary navbar-btn">#}
+{#                                    <a  style="text-decoration: none" href="{{ url_for('self_center') }}">{{ user.u_name }}</a>#}
+{#                                </button>#}
+                            </li>
+                            <li style="color: #00CCFF">
+                                |
+                            </li>
+                            {% if user.u_img %}
+                                <li>
+                                  <img src="{{ user.u_img }}" alt="" style="width: 40px; height: 40px;border-radius: 40px;">
+                                </li>
+                                {% else %}
+                                 <li>
+                                  <img src="../static/userImage/default.jpg" alt="" style="width: 40px; height: 40px;border-radius: 40px;">
+                                </li>
+                            {% endif %}
+                             <li class="dropdown">
+                              <a href="#"  style="text-decoration: none;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url_for('self_center') }}">我的信息</a></li>
+                                    <li><a href="{{ url_for('my_goods') }}">我发布的商品</a></li>
+                                    <li><a href="{{ url_for('my_message',u_id = user.u_id) }}">我的消息</a></li>
+                                    <li><a href="{{ url_for('my_attention') }}">我的关注</a></li>
+                                     <li><a  style="text-decoration: none" href="{{ url_for('logout') }}">退出</a></li>
+                                    <li role="separator" class="divider"></li>
+                                </ul>
+                             </li>
+                        {% else %}
+                            <li>
+                                <button class="btn btn-outline-primary navbar-btn">
+                                    <a  style="text-decoration: none" href="{{ url_for('login') }}">登录</a>
+                                </button>
+                            </li>
+                            <li>
+                                 <button class="btn btn-outline-primary navbar-btn">
+                                    <a  style="text-decoration: none" href="{{ url_for('regist') }}">注册</a>
+                                </button>
+                            </li>
+
+                        {% endif %}
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="{{ url_for('search') }}">
+                  <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+          </div>
+       </nav>
+</header>
+{% block main %}
+
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
+
+</body>
+</html>

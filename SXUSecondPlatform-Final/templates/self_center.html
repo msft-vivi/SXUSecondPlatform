@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+{% block title %}个人中心{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/self_center.css') }}">
+            <script>
+        function $(id)
+		{
+			return document.getElementById(id);
+		}
+		function validate_file()
+		{
+			console.log("执行")
+			var f = $("file_id");
+			var filename = f.value; //文件名字
+			var temp = filename.split('.');
+			var last = temp[temp.length-1];
+			if(!filename)
+			{
+				alert("上传图片不能为空");
+				return false;
+			}
+			else if(  last=="jpg"|| last=="png" || last=="gif" )
+			{
+				return true;
+			}
+			else
+			{
+				alert("只能上传.jpg，.png, .gif文件");
+				return false;
+			}
+		}
+    </script>
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+          <h2>我的信息</h2>
+          <div class="card" style="width:400px">
+{#            <img class="card-img-top" src="{{ user.u_img|default('static/userImage/default.jpg')}}" alt="Card image" style="width:100%">#}
+              {% if user.u_img %}
+                    <img class="card-img-top" src="{{ user.u_img }}" alt="Card image" style="width:100%">
+              {% else %}
+                  <img class="card-img-top" src="../static/userImage/default.jpg" alt="Card image" style="width:100%">
+              {% endif %}
+
+            <div class="card-body">
+              <h4 class="card-title">{{ user.u_name }}</h4>
+              <p class="card-text">学生</p>
+              <a href="{{ url_for('modify_self_info') }}" class="btn btn-primary">修改个人信息</a>
+            </div>
+          </div>
+              <br>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">上传头像</h4>
+              <p class="card-text">支持jpg、png格式图片</p>
+                <form action="{{ url_for('upload',u_id = g.user.u_id) }}" method="post" enctype="multipart/form-data" onsubmit="return validate_file()">
+                 <input type="file" name="file" id="file_id">
+                 <button type="submit" class="btn btn-success">确定上传</button>
+                </form>
+            </div>
+          </div>
+    </div>
+{% endblock %}

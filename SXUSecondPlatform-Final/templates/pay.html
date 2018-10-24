@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+    <style type="text/css">
+            .form-container{
+            width: 300px;
+            margin: 30px auto;
+        }
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <h3 class="page-title">请选择支付方式</h3>
+        <form action="{{ url_for('success') }}" class="form-container">
+               <div class="form-group">
+                      <div class="form-type">
+                            <select class="form-control text-danger" id="type" name="type" required="">
+                                <option value disabled="disabled" selected="selected">支付方式（必选）</option>
+                                <option value="1">建设银行</option>
+                                <option value="2">微信支付</option>
+                                <option value="3">龙支付</option>
+                                <option value="4">支付宝</option>
+                            </select>
+                    </div>
+               </div>
+            <div style="text-align: right" class="form-group">
+                <button type="submit" class="btn btn-primary">确认支付</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+.goods-info{
+    margin-top: 20px;
+}
+.goods-info .goods-author{
+    margin-right: 10px;
+}
+
+.comment-info .username{
+      margin-left: 20px;
+    color: #9b9b9b;
+    line-height: 40px;
+}
+.comment-info .create_time{
+    float: right;
+}
+.comment-list .comment-content{
+    margin-left: 65px;
+}
+.comment-list{
+     list-style: none;
+    border-bottom: 1px solid #eee;
+}
+.comment-list .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

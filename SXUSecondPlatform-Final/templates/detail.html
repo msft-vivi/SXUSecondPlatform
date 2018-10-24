@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}
+    商品详细信息
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/detail.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <p class="goods-info">
+            <span class="goods-author">发布人 : {{ goods.author.u_name }}</span>
+            <span>发布时间: {{ goods.g_time }}</span>
+        </p>
+        <hr>
+        <div class="container">
+          <div class="card" style="width:400px">
+            <img class="card-img-top" src="{{ goods.g_img }}" alt="Card image">
+            <div class="card-body">
+                <h5 class="card-title">商品名称: {{ goods.g_name }}</h5>
+                <h5 class="card-title">商品价格: {{ goods.g_price }}</h5>
+                <h5 class="card-title">是否讲价:
+                    {% if goods.g_discount %}
+                        是
+                        {% else %}
+                        否
+                    {% endif %}
+                </h5>
+            <h5 class="card-title">联系方式: </h5>
+                {% if goods.g_u_qq %}
+                    <p>qq:{{ goods.g_u_qq }}</p>
+                {% endif %}
+                {% if goods.g_u_wechat %}
+                    <p>微信:{{ goods.g_u_wechat }}</p>
+                {% endif %}
+                {% if goods.g_u_tel %}
+                    <p>手机号:{{ goods.g_u_tel }}</p>
+                {% endif %}
+
+                  <a href="#desc" class="btn btn-info" data-toggle="collapse">点击查看商品描述</a>
+                  <div id="desc" class="collapse">
+                      <p style="font-weight: bold;margin: 5px 10px">
+                          {{ goods.g_desc }}
+                      </p>
+                  </div>
+            </div>
+           </div>
+            <div style="width: 400px;margin: 5px 0px">
+                {% if g.user.u_id == goods.author.u_id %}
+                    <a href="{{ url_for('modify_goods_info',goods_id = goods.g_id) }}" class="btn btn-primary" style="text-align: right">修改商品信息</a>
+                {% endif %}
+                {% if g.user.u_id == goods.author.u_id %}
+                    <a href="{{ url_for('delete_goods',goods_id=goods.g_id) }}" class="btn btn-primary" style="text-align: right">取消发布</a>
+                {% endif %}
+                {% if g.user.u_id != goods.author.u_id %}
+                    <a href="{{ url_for('order',goods_id=goods.g_id) }}" class="btn btn-primary" style="text-align: right">购买</a>
+                    <a href="{{ url_for('pay_attention',goods_id=goods.g_id) }}" class="btn btn-primary" style="text-align: right">关注作者</a>
+                {% endif %}
+            </div>
+          </div>
+
+          <br>
+        <hr>
+        <h4>评论数:({{ goods.comments|length }})</h4>
+
+        <form action="{{ url_for('add_comment') }}" method="post">
+            <div class="form-group">
+                <input type="text" name="content" class="form-control" placeholder="请填写评论">
+                <input type="hidden" name="goods_id" value="{{ goods.g_id }}">
+            </div>
+            <div class="form-group" style="text-align: right">
+                <button class="btn btn-primary">发布评论</button>
+            </div>
+        </form>
+        <ul class="comment-list">
+            {% for comment in goods.comments %}
+                <div class="comment-info">
+                {% if comment.author.u_img %}
+                    <img class="avatar" src="{{ comment.author.u_img }}" alt="">
+                {% else %}
+                    <img class="avatar" src="{{ url_for('static',filename='userImage/default.jpg') }}" alt="">
+                {% endif %}
+                    <span class="username">{{ comment.author.u_name }}</span>
+                    <span class="create_time">{{ comment.cm_time }}</span>
+                </div>
+                <p class="comment-content">{{ comment.cm_content }}</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

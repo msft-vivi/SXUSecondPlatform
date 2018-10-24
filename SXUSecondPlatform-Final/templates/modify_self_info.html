@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}注册{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/regist.css') }}">
+        <script>
+        function $(id)
+    {
+        return document.getElementById(id);
+    }
+
+    function validate()
+    {
+        var re = /[0-9a-zA-Z]{3,16}/; //用户名只能允许由数字和字母构成，长度为6-16个
+        var re2 = /^\S{6,16}$/; //密码只允许为非空的字符组成，且长度为6-16个。
+        var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+        if($("username").value=="" || $("username").value==null){
+            alert("用户名不能为空");
+            return false
+        }
+        if($("telephone").value=="" || $("telephone").value==null)
+        {
+            alert("手机号不能为空");
+            return false;
+        }
+        if(!re.test($("username").value))
+            {
+                alert("用户名只能允许由数字和字母构成，长度为3-16个");
+                return false;
+            }
+        if (!phoneReg.test($("telephone").value)){
+                alert('请输入有效的手机号码！');
+                return false;
+        }
+        if($("password1").value=="" || $("password1").value==null)
+            {
+                alert("密码不能为空");
+                return false;
+            }
+
+        if(!re2.test($("password1").value))
+            {
+                alert("密码只允许为非空的字符组成，且长度为6-16个。");
+                return false;
+            }
+
+        if($("password2").value!=$("password1").value)
+            {
+                alert("两次密码输入不一致！");
+                return false;
+            }
+        if($("address").value=="" || $("address").value == null){
+            alert("地址不能为空");
+            return false;
+        }
+
+        return true;
+    }
+    </script>
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+    <form action="" method="post">
+        <h3 class="page-title-regist">修改信息</h3>
+        <div class="form-container">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" name="username" value="{{ user.u_name }}" id="username">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="手机号" name="telephone" value="{{ user.u_tel }}" id="telephone">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="请输入新密码" name="password1" id="password1">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="请再次输入新密码" name="password2" id="password2">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入地址" name="address" value="{{ user.u_addr }}" id="address">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" onclick="return validate()">提交</button>
+            </div>
+
+        </div>
+    </form>
+    </div>
+{% endblock %}

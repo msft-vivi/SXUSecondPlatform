@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}我的关注{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my_attention.css') }}">
+{% endblock %}
+{% block main %}=
+    <div class="container">
+        <p class="page-title">我的关注</p>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="">关注的人<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">关注的商品</a>
+              </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    <div class="container">
+
+        <ul class="attention-list">
+            {% for attention in attention_list %}
+                <hr class="my-4">
+                <div class="attention-info">
+                    {% if attention %}
+                        <img class="avatar" src="{{ attention.ated_author.u_img }}" alt="">
+                    {% else %}
+                        <img class="avatar" src="{{ url_for('static',filename='userImage/default.jpg') }}" alt="">
+                    {% endif %}
+                        <span class="username">{{ attention.ated_author.u_name }}</span>
+                        <span class="addr">{{ attention.ated_author.u_addr }}</span>
+                        <span class="addr">学生</span>
+                        <a href="{{ url_for('ated_post',u_id=attention.ated_uid) }}" style="float: right;">查看作者动态</a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}购买成功{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/goods.css') }}">
+    <script type="text/javascript">
+        onload = function(){
+            setInterval(go, 1000);
+        }
+        var x = 5;
+        function go(){
+            --x;
+            if(x > 0){
+                document.getElementById("sp").innerHTML = x;
+            }
+            else{
+                window.history.go(-1);
+            }
+        }
+    </script>
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <div id = "d1">
+	      	<img alt="" src="../static/img/load.gif"><br/>     <!-- alt为其它信息 -->
+		    <p>购买成功<label id="sp" class="price">5</label>秒钟跳转到购物界面，您可以继续购物。您也可以点击查看购物车<a href="{{ url_for('index') }}" class="link">查看购物车</a></p>
+	    </div>
+    </div>
+{% endblock %}

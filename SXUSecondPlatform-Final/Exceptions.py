@@ -1,0 +1,3 @@
+
+class RegisterException(Exception):
+    pass

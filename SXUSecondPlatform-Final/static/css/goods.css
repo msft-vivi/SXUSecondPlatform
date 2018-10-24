@@ -1,0 +1,20 @@
+.table{
+    border: 1px solid #0f0f0f;
+}
+.table-head{
+    font-size: 23px;
+    text-align: center;
+    background-color: #00CCFF;
+}
+.table-body{
+    border: 1px solid #985f0d;
+}
+.table-body tr{
+    text-align: center;
+    font-weight: bold;
+    background-color: #afd9ee;
+}
+.table-body a{
+    color: #d58512;
+    font-weight: bold;
+}

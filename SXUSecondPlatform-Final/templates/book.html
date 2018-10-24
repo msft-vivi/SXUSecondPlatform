@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}二手图书{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/goods.css') }}">
+
+        <style>
+        .mulLines{
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        {% if books %}
+        <table class="table table-hover">
+        <thead class="table-head">
+          <tr>
+              <th style="width: 25%">商品名称</th>
+                <th style="width: 40%;">商品描述</th>
+                <th style="width: 20%">商品价格(￥)</th>
+              <th style="width: 15%">详细信息</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+   {% for book in books%}
+            <tr>
+                <td>{{ book.g_name }}</td>
+                <td class=>{{ book.g_desc }}</td>
+                <td>{{ book.g_price }}</td>
+                <td><a href="{{ url_for('detail',goods_id = book.g_id) }}">查看详情</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {% else %}
+            <h3>暂无商品发布信息</h3>
+    {% endif %}
+    </div>
+{% endblock %}

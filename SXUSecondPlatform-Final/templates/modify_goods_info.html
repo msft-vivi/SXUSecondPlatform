@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}发布问答{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/post_goods.css') }}">
+        <script>
+        function $(id)
+		{
+			return document.getElementById(id);
+		}
+		function validate_file()
+		{
+			console.log("执行")
+			var f = $("file_id");
+			var filename = f.value; //文件名字
+			var temp = filename.split('.');
+			var last = temp[temp.length-1];
+			if(!filename)
+			{
+				alert("上传图片不能为空");
+				return false;
+			}
+			else if(  last=="jpg"|| last=="png" || last=="gif" )
+			{
+				return true;
+			}
+			else
+			{
+				alert("只能上传.jpg，.png, .gif文件");
+				return false;
+			}
+		}
+    </script>
+        <style>
+         .container{
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+    <form action="" method="post" enctype="multipart/form-data" onsubmit="return validate_file()">
+        <h3 class="page-title">修改商品信息</h3>
+        <div class="form-container">
+            <div class="form-group">
+                <input  class="form-control skiplink-text" type="text" id="name" name="name"  required="" placeholder="商品名（必填）" value="{{ goods.g_name }}"/>
+            </div>
+            <div class="form-group" style="margin: 0 auto">
+                    <textarea  type="text" class="form-control" id="description" name="description" placeholder="商品描述（必填）">{{ goods.g_desc }}</textarea>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="location" name="location" required="">
+                    <option value disabled="disabled" selected="selected">交易地点（必选）</option>
+                    <option value="全校">山西大学所有校区</option>
+                    <option value="大东关校区">大东关校区</option>
+                    <option value="山西大学主校区">山西大学主校区</option>
+                </select>
+            </div>
+            <div class="form-group">
+                    <div class="input-group">
+                        <input value="{{ goods.g_price }}" type="text" class="form-control" id="price" name="price" placeholder="价格￥(必填)" required="">
+                    </div>
+            </div>
+            <div class="form-group">
+                <div class="form-type">
+                    <select class="form-control text-danger" id="type" name="type" required="">
+                        <option value disabled="disabled" selected="selected">商品类型（必选）</option>
+                        <option value="1">图书教材</option>
+                        <option value="2">电子数码</option>
+                        <option value="3">生活用品</option>
+                        <option value="4">代步工具</option>
+                    </select>
+                </div>
+             </div>
+            <div class="form-group">
+                <div class="radio text-primary">
+                    <label><input type="radio" name="discount" id="optionsRadios1" value=1 checked>可讲价</label>
+                    <label><input type="radio" name="discount" id="optionsRadios2" value=2 >不可讲价</label>
+              </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group-addon">QQ号</div>
+                <input type="text" class="form-control" id="price" name="qqnum" placeholder="选填" value="{{ goods.g_u_qq }}">
+                <div class="input-group-addon">微信号</div>
+                <input type="text" class="form-control" id="price" name="wechatnum" placeholder="选填" value="{{ goods.g_u_wechat }}">
+                <div class="input-group-addon">QQ号</div>
+                <input type="text" class="form-control" id="price" name="telephone" placeholder="选填" value="{{ goods.g_u_tel }}">
+{#                <textarea name="contact_way"  rows="3" class="form-control" placeholder="请输入联系方式"></textarea>#}
+            </div>
+            <div align="center" class="form-file form-group">
+                    <span class="input__label-content">点击Browse选择一张图片（必选）</span>
+                    <input type="file" name="file"  class="file" id ="file_id">
+                    <button type="submit" href="#" class="btn btn-primary pull-center"><i class="glyphicon glyphicon-send"></i> 马上发布</button>
+            </div>
+        </div>
+    </form>
+    </div>
+{% endblock %}
